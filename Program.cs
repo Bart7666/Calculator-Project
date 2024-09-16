@@ -8,19 +8,29 @@ namespace Calculator_project
 {
     internal class Program
     {
-        /*
-        static double Value(string Order)
+        static double UserInput(string Order)
         {
-            Console.WriteLine($"Enter the {Order} number ");
-            
-            string Temp = Console.ReadLine();
+            do
+            {
+                Console.WriteLine($"Enter the {Order} number ");
+                string Temp = Console.ReadLine();
+                if (Double.TryParse(Temp, out double Num))
+                {
+                    return Num;
+                }
+                else
+                {               
+                    Console.WriteLine("Incorrect format for entry");
+                }
+            } while (true);
 
-            return Num;
+
         }
-        */
+
         static char Options()
         {
             Console.WriteLine("What operation would you like to do ? (Enter the number)");
+            Console.WriteLine(" 0.Exit");
             Console.WriteLine(" 1.Add");
             Console.WriteLine(" 2.Subtract");
             Console.WriteLine(" 3.Multiply");
@@ -35,10 +45,13 @@ namespace Calculator_project
             {
                 char Case = Options();
                 // Inputs The first and second operand as Num1 and Num2
-                double Num1 = Value("first");
-                double Num2 = Value("second");
+                double Num1 = UserInput("first");
+                double Num2 = UserInput("second");
                 switch (Case)
                 {
+                    case '0':
+                        Continue = 1;
+                        break;
                     case '1':
                         Console.WriteLine(Convert.ToString(Num1 + Num2));
                         break;
