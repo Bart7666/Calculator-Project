@@ -59,7 +59,7 @@ namespace Calculator_project
             do
             {
                 char Input = Convert.ToChar(Console.Read());
-                if (Input < 0 || Input > 10)
+                if (!Char.IsDigit(Input))
                 {
                     Console.WriteLine("Incorrect input");
                 }
@@ -71,7 +71,7 @@ namespace Calculator_project
 
         }
 
-        static string ConverterOptions(string InOut)
+        static char ConverterOptions(string InOut)
         {
             do
             {
@@ -80,34 +80,13 @@ namespace Calculator_project
                 switch (Choice)
                 {
                     case '1':
-                        int Temp;
-                        do
-                        {
-                            Console.WriteLine("Enter the Denary");
-                        } while (Int32.TryParse(Console.ReadLine(), out Temp));
-                        return Convert.ToString(Temp);
-                    case '2':
-                        do
-                        {
-                            Console.WriteLine("Enter the 8 bit binary");
-                            string Output = Console.ReadLine();
-                            bool Checker = true;
-                            foreach (char Letter in Output)
-                            {
-                                if (Letter != 0 || Letter != 1)
-                                {
-                                    Checker = false;
-                                    break;
-                                }
-                            }
-                            if (Checker)
-                            {
-                                return Output;
-                            }
-                        } while (true);
-                    case '3':
-                        //Do hex
+                        return '1';
 
+                    case '2':
+                        return '2';
+
+                    case '3':
+                        return '3';
 
                     default:
                         Console.WriteLine("Incorrect input");
@@ -117,15 +96,138 @@ namespace Calculator_project
 
 
         }
-        /*
-        static string Converter()
+        static int IntInputter()
         {
-            string In = ConverterOptions(" from");
-            string Out = ConverterOptions(" into");
-            
-            return Converted;
+            int Temp;
+            do
+            {
+                Console.WriteLine("Enter the Denary");
+            } while (Int32.TryParse(Console.ReadLine(), out Temp));
+            return Temp;
         }
-        */
+
+        static string BinInputter()
+        {
+            do
+            {
+                Console.WriteLine("Enter the binary");
+                string Output = Console.ReadLine();
+                bool BinChecker = true;
+                foreach (char Letter in Output)
+                {
+                    if (Letter != '0' || Letter != '1')
+                    {
+                        BinChecker = false;
+                        break;
+                    }
+                }
+                if (BinChecker)
+                {
+                    return Output;
+                }
+            } while (true);
+        }
+        static string HexInputter()
+        {
+            do
+            {
+                Console.WriteLine("Enter the Hex 0x");
+                string Output = Console.ReadLine();
+                bool HexChecker = true;
+                foreach (char Letter in Output)
+                {
+                    if (!('0' <= Letter && Letter <= '9' || 'a' <= Letter && Letter <= 'f' || 'A' <= Letter && Letter <= 'F'))
+                    {
+                        HexChecker = false;
+                        break;
+                    }
+                }
+                if (HexChecker)
+                {
+                    return Output;
+                }
+
+            } while (true);
+        }
+
+        static void DenConverter()
+        {
+            int Denary = IntInputter();
+            char Choice = ConverterOptions(" to");
+            switch (Choice)
+            {
+                case '1':
+                    Console.WriteLine($"{Denary} in Denary is {Denary}");
+                    break;
+
+                case '2':
+                    break;
+
+                case '3':
+                    break;
+            }
+        }
+        static void BinConverter()
+        {
+            string Bin = BinInputter();
+            char Choice = ConverterOptions(" to");
+            switch (Choice)
+            {
+                case '1':
+                    Console.WriteLine($"{Bin} in Denary is {Convert.ToInt32(Bin, 2)}");
+                    break;
+
+                case '2':
+                    Console.WriteLine($"0x{Bin} in Hex is 0x{Bin}");
+                    break;
+
+                case '3':
+                    break;
+            }
+        }
+        static void HexConverter()
+        {
+            string Hex = HexInputter();
+            char Choice = ConverterOptions(" to");
+            switch (Choice)
+            {
+                case '1':
+                    Console.WriteLine($"{Hex} in Denary is {Convert.ToInt32(Hex,16)}");
+                    break;
+
+                case '2':
+                    Console.WriteLine($"{Hex} in Binary is ");
+                    break;
+
+                case '3':
+                    Console.WriteLine($"0x{Hex} in Hex is 0x{Hex}");
+                    break;
+            }
+        }
+
+
+        static void Converter()
+        {
+            char In = ConverterOptions(" from");
+            switch (In)
+            {
+                case '1':
+                    DenConverter();
+                    break;
+
+                case '2':
+                    BinConverter();
+                    break;
+
+                case '3':
+                    HexConverter();
+                    break;
+            }
+
+
+        }
+
+
         static void Main(string[] args)
         {
             int Continue = 0;
@@ -140,34 +242,42 @@ namespace Calculator_project
                     case '0':
                         Continue = 1;
                         break;
+
                     case '1':
                         Console.WriteLine("The Sum of these two numbers is: " + Convert.ToString(Num1 + Num2));
                         break;
                     case '2':
+
                         Console.WriteLine($"The difference of these two numbers is: " + Convert.ToString(Num1 - Num2));
                         break;
+
                     case '3':
                         Console.WriteLine($"The product of these two numbers is: " + Convert.ToString(Num1 * Num2));
                         break;
+
                     case '4':
                         Console.WriteLine($"The quotient of these two numbers is: " + Convert.ToString(Num1 / Num2));
                         break;
+
                     case '5':
                         Console.WriteLine($"The result of {Num1} raised to the power of {Num2} numbers is: " + Convert.ToString(Math.Pow(Num1,Num2)));
                         break;
+
                     case '6':
                         Console.WriteLine($"The result of the {Rooting(Num2)} root of {Num1} " + Convert.ToString(Math.Pow(Num1,1/Num2)));
                         break;
+
                     case '7':
                         Console.WriteLine($"The log base {Num2} of {Num1} is {Math.Log(Num1, Num2)}");
                         break;
+
                     case '8':
                         Console.WriteLine($"{Num1} rounded to {Num2} decimal places is {Math.Round(Num1,(int)Num2)}");
                         break;
+
                     case '9':
-
+                        Converter();
                         break;
-
 
                     default:
                         Console.WriteLine("Invalid input");
