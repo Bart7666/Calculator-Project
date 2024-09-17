@@ -13,7 +13,7 @@ namespace Calculator_project
             do
             {
                 Console.WriteLine($"Enter the {Order} number ");
-                string Temp= Console.ReadLine();
+                string Temp = Console.ReadLine();
                 if (Double.TryParse(Temp, out double Num))
                 {
                     return Num;
@@ -234,9 +234,14 @@ namespace Calculator_project
             while (Continue == 0)
             {
                 char Case = Options();
-                // Inputs The first and second operand as Num1 and Num2
-                double Num1 = UserInput("first");
-                double Num2 = UserInput("second");
+                // Inputs The first and second operand as Num1 and Num2 if option != convert
+                double Num1 = 0;
+                double Num2 = 0;
+                if (Case != 9)
+                {
+                    Num1 = UserInput("first");
+                    Num2 = UserInput("second");
+                }
                 switch (Case)
                 {
                     case '0':
