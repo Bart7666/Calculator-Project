@@ -58,7 +58,7 @@ namespace Calculator_project
 
             do
             {
-                char Input = Convert.ToChar(Console.Read());
+                char Input = Convert.ToChar(Console.ReadLine());
                 if (!Char.IsDigit(Input))
                 {
                     Console.WriteLine("Incorrect input");
