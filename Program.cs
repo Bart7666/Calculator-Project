@@ -102,7 +102,7 @@ namespace Calculator_project
             do
             {
                 Console.WriteLine("Enter the Denary");
-            } while (Int32.TryParse(Console.ReadLine(), out Temp));
+            } while (!Int32.TryParse(Console.ReadLine(), out Temp));
             return Temp;
         }
 
@@ -111,19 +111,20 @@ namespace Calculator_project
             do
             {
                 Console.WriteLine("Enter the binary");
-                string Output = Console.ReadLine();
+                string Binary = Console.ReadLine();
                 bool BinChecker = true;
-                foreach (char Letter in Output)
+                foreach (char Letter in Binary)
                 {
-                    if (Letter != '0' || Letter != '1')
+                    if (Letter != '0' && Letter != '1')
                     {
+                        Console.WriteLine(Convert.ToString(Letter));
                         BinChecker = false;
                         break;
                     }
                 }
                 if (BinChecker)
                 {
-                    return Output;
+                    return Binary;
                 }
             } while (true);
         }
@@ -161,9 +162,11 @@ namespace Calculator_project
                     break;
 
                 case '2':
+                    Console.WriteLine($"{Denary} in Binary is {Convert.ToString(Denary,2)}");
                     break;
 
                 case '3':
+                    Console.WriteLine($"{Denary} in Hexadecimal is {Convert.ToString(Denary, 16).ToUpper()}");
                     break;
             }
         }
@@ -178,10 +181,11 @@ namespace Calculator_project
                     break;
 
                 case '2':
-                    Console.WriteLine($"0x{Bin} in Hex is 0x{Bin}");
+                    Console.WriteLine($"0x{Bin} in Binary is 0x{Bin}");
                     break;
 
                 case '3':
+                    Console.WriteLine($"{Bin} in Hexadecimal is {Convert.ToString(Convert.ToInt32(Bin, 2),16).ToUpper()}");
                     break;
             }
         }
@@ -196,11 +200,11 @@ namespace Calculator_project
                     break;
 
                 case '2':
-                    Console.WriteLine($"{Hex} in Binary is ");
+                    Console.WriteLine($"{Hex} in Binary is {Convert.ToString(Convert.ToInt32(Hex, 16),2)}");
                     break;
 
                 case '3':
-                    Console.WriteLine($"0x{Hex} in Hex is 0x{Hex}");
+                    Console.WriteLine($"0x{Hex} in Hexadecimal is 0x{Hex}");
                     break;
             }
         }
@@ -237,7 +241,7 @@ namespace Calculator_project
                 // Inputs The first and second operand as Num1 and Num2 if option != convert
                 double Num1 = 0;
                 double Num2 = 0;
-                if (Case != 9)
+                if (Case != '9' && Case != '0')
                 {
                     Num1 = UserInput("first");
                     Num2 = UserInput("second");
